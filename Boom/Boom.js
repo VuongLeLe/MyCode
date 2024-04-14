@@ -1,7 +1,7 @@
 const grid = document.getElementById("grid");
 let lockGame = false;
 //Set test mode"to true if you want see mines location
-const testMode = true;
+const testMode = false;
 generateGrid();
 
 function generateGrid() {
