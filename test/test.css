@@ -1,0 +1,21 @@
+:root {
+  --number-column: 10;
+  --gap: 1px;
+}
+
+.grid-block {
+  display: grid;
+  grid-template-columns: repeat(var(--number-column), minmax(0, 1fr));
+  gap: var(--gap);
+  width: calc(
+    6px * var(--number-column) + (var(--gap) * (var(--number-column) - 1))
+  );
+}
+
+.block {
+  width: 6px;
+  height: 6px;
+  background-color: red;
+  border: 1px solid blue;
+  box-sizing: border-box;
+}
