@@ -1,6 +1,6 @@
 body {
   background-color: #263238;
-  color: cyan;
+  color: lightskyblue;
   font-family: courier;
   display: grid;
   align-content: center;
@@ -42,4 +42,9 @@ button {
   border: none;
   outline: none;
   cursor: pointer;
+}
+
+.flagged {
+  background-color: orangered !important;
+  /* pointer-events: none !important; */
 }

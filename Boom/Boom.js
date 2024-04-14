@@ -7,14 +7,23 @@ generateGrid();
 function generateGrid() {
   lockGame = false;
   grid.innerHTML = "";
-  for (var i = 0; i < 10; i++) {
+  for (let i = 0; i < 10; i++) {
     row = grid.insertRow(i);
-    for (var j = 0; j < 10; j++) {
+    for (let j = 0; j < 10; j++) {
       cell = row.insertCell(j);
       cell.onclick = function () {
         init(this);
       };
-      var mine = document.createAttribute("mine");
+      cell.oncontextmenu = function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        const node = document.querySelector(
+          `#grid tbody tr:nth-child(${i + 1}) td:nth-child(${j + 1})`
+        );
+
+        node.classList.toggle("flagged");
+      };
+      let mine = document.createAttribute("mine");
       mine.value = "false";
       cell.setAttributeNode(mine);
     }
@@ -25,10 +34,10 @@ function generateGrid() {
 //Generate mines randomly
 function generateMines() {
   //add 20 mines to game
-  for (var i = 0; i < 20; i++) {
-    var row = Math.floor(Math.random() * 10);
-    var col = Math.floor(Math.random() * 10);
-    var cell = grid.rows[row].cells[col];
+  for (let i = 0; i < 20; i++) {
+    let row = Math.floor(Math.random() * 10);
+    let col = Math.floor(Math.random() * 10);
+    let cell = grid.rows[row].cells[col];
     cell.setAttribute("mine", "true");
     if (testMode) {
       cell.innerHTML = "!";
@@ -38,9 +47,9 @@ function generateMines() {
 
 //Hightlight all mines red
 function revealMines() {
-  for (var i = 0; i < 10; i++) {
-    for (var j = 0; j < 10; j++) {
-      var cell = grid.rows[i].cells[j];
+  for (let i = 0; i < 10; i++) {
+    for (let j = 0; j < 10; j++) {
+      let cell = grid.rows[i].cells[j];
       if (cell.getAttribute("mine") == "true") {
         cell.className = "mine";
       }
@@ -49,9 +58,9 @@ function revealMines() {
 }
 
 function checkGameComplete() {
-  var gameComplete = true;
-  for (var i = 0; i < 10; i++) {
-    for (var j = 0; j < 10; j++) {
+  let gameComplete = true;
+  for (let i = 0; i < 10; i++) {
+    for (let j = 0; j < 10; j++) {
       if (
         grid.rows[i].cells[j].getAttribute("mine") == "false" &&
         grid.rows[i].cells[j].innerHTML == ""
@@ -61,7 +70,7 @@ function checkGameComplete() {
     }
   }
   if (gameComplete) {
-    alert("Bạn dò hết ùi >~<!");
+    alert("Bạn dò hết ùi <3");
     revealMines();
   }
 }
@@ -80,16 +89,16 @@ function init(cell) {
       cell.className = "active";
 
       //Display number of mines around cell
-      var mineCount = 0;
-      var cellRow = cell.parentNode.rowIndex;
-      var cellCol = cell.cellIndex;
+      let mineCount = 0;
+      let cellRow = cell.parentNode.rowIndex;
+      let cellCol = cell.cellIndex;
       for (
-        var i = Math.max(cellRow - 1, 0);
+        let i = Math.max(cellRow - 1, 0);
         i <= Math.min(cellRow + 1, 9);
         i++
       ) {
         for (
-          var j = Math.max(cellCol - 1, 0);
+          let j = Math.max(cellCol - 1, 0);
           j <= Math.min(cellCol + 1, 9);
           j++
         ) {
@@ -102,12 +111,12 @@ function init(cell) {
       if (mineCount == 0) {
         //if cell don't have mine
         for (
-          var i = Math.max(cellRow - 1, 0);
+          let i = Math.max(cellRow - 1, 0);
           i <= Math.min(cellRow + 1, 9);
           i++
         ) {
           for (
-            var j = Math.max(cellCol - 1, 0);
+            let j = Math.max(cellCol - 1, 0);
             j <= Math.min(cellCol + 1, 9);
             j++
           ) {
